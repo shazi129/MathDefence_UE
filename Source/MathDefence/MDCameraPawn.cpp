@@ -9,8 +9,10 @@ AMDCameraPawn::AMDCameraPawn()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
+	//根节点
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 
+	//相机
 	MainCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("MainCamera"));
 	MainCamera->SetupAttachment(RootComponent);
 }
