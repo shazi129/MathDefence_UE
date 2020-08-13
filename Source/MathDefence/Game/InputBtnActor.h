@@ -3,7 +3,7 @@
 #pragma once
 
 #include "Components/BoxComponent.h"
-
+#include "Components/TextRenderComponent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "InputBtnActor.generated.h"
@@ -28,6 +28,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void OnInputBtnClick(UPrimitiveComponent * primitiveComponent, FKey fKey);
 
+	UFUNCTION(BlueprintCallable)
+		void SetType(INPUT_BTN_TYPE btnType);
+
+	UFUNCTION(BlueprintCallable)
+		void SetText(FString text);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -41,5 +47,8 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
 		UBoxComponent * CollisionBox;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+		UTextRenderComponent * BtnText;
 
 };
