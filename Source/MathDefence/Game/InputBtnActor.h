@@ -34,6 +34,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void SetText(FString text);
 
+	FString GetText();
+	INPUT_BTN_TYPE GetBtnType();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -4,6 +4,7 @@
 #include "InputBtnActor.h"
 #include "Kismet/GameplayStatics.h"
 #include "./../MDGameMode.h"
+#include "./../GameSystem/GameNotifier.h"
 
 // Sets default values
 AInputBtnActor::AInputBtnActor()
@@ -32,8 +33,10 @@ void AInputBtnActor::BeginPlay()
 
 void  AInputBtnActor::OnInputBtnClick(UPrimitiveComponent * primitiveComponent, FKey fKey)
 {
-	AMDGameMode * gameMode = CastChecked<AMDGameMode>(UGameplayStatics::GetGameMode(this));
-	gameMode->handleBtnInput(BtnType, BtnText->Text);
+	ObserverParam param;
+	param.id = (int)GameNotifier::E_BTN_INPUT;
+	param.updateData = (void*)this;
+	GameNotifier::getInstance()->notifyObservers((void*)&param);
 }
 
 void AInputBtnActor::SetType(INPUT_BTN_TYPE btnType)
@@ -44,5 +47,15 @@ void AInputBtnActor::SetType(INPUT_BTN_TYPE btnType)
 void AInputBtnActor::SetText(FString text)
 {
 	BtnText->SetText(FText::FromString(text));
+}
+
+FString AInputBtnActor::GetText()
+{
+	return BtnText->Text.ToString();
+}
+
+INPUT_BTN_TYPE AInputBtnActor::GetBtnType()
+{
+	return BtnType;
 }
 

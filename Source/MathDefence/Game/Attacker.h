@@ -2,41 +2,39 @@
 
 #pragma once
 
-#include "./InputBtnActor.h"
-#include "./../GameSystem/Observer.h"
-#include "Components/TextRenderComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Engine/StaticMeshActor.h"
 #include "Components/SceneComponent.h"
+#include "Components/TextRenderComponent.h"
+#include "Components/BoxComponent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "InputResultText.generated.h"
+#include "Attacker.generated.h"
 
 UCLASS()
-class MATHDEFENCE_API AInputResultText : public AActor, public Observer
+class MATHDEFENCE_API AAttacker : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AInputResultText();
-
-public:
-	virtual void updateSelf(void* data);
+	AAttacker();
 
 public:
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
-		USceneComponent * ResultRoot;
+		UStaticMeshComponent  * AttackerRoot;
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
-		UTextRenderComponent * ResultText;
+		UTextRenderComponent * AttackNum;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+		UBoxComponent * CollisionBox;
+
+	void SetNumber(int number);
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	virtual void BeginDestroy() override;
 
-private:
-	void handleInput(INPUT_BTN_TYPE inputType, FString value);
 
-private:
-	int _number; 
 };
