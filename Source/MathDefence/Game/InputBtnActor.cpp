@@ -5,6 +5,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "./../MDGameMode.h"
 #include "./../GameSystem/GameNotifier.h"
+#include "./../GameSystem/GameSingleton.h"
+#include "./MDGameNotifier.h"
 
 // Sets default values
 AInputBtnActor::AInputBtnActor()
@@ -33,10 +35,12 @@ void AInputBtnActor::BeginPlay()
 
 void  AInputBtnActor::OnInputBtnClick(UPrimitiveComponent * primitiveComponent, FKey fKey)
 {
-	ObserverParam param;
-	param.id = (int)GameNotifier::E_BTN_INPUT;
-	param.updateData = (void*)this;
-	GameNotifier::getInstance()->notifyObservers((void*)&param);
+ 	FGameNotifyData notifyData;
+ 	notifyData.ID = (int)E_BTN_INPUT;
+ 	notifyData.Data = (UObject*)this;
+	UMDGameNotifier * notifier = Cast<UMDGameNotifier>(UGameSingleton::GetGameSingleton()->GetInstance(UMDGameNotifier::StaticClass()));
+	notifier->NotifyListeners(notifyData);
+// 	GameNotifier::getInstance()->notifyObservers((void*)&param);
 }
 
 void AInputBtnActor::SetType(INPUT_BTN_TYPE btnType)

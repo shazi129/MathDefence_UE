@@ -2,7 +2,8 @@
 
 
 #include "InputResultText.h"
-#include "./../GameSystem/GameNotifier.h"
+#include "./MDGameNotifier.h"
+#include "./../GameSystem/GameSingleton.h"
 
 // Sets default values
 AInputResultText::AInputResultText()
@@ -23,32 +24,36 @@ AInputResultText::AInputResultText()
 void AInputResultText::BeginPlay()
 {
 	Super::BeginPlay();
-
-	GameNotifier::getInstance()->addObserver(this);
+	UMDGameNotifier * notifier = Cast<UMDGameNotifier>(UGameSingleton::GetGameSingleton()->GetInstance(UMDGameNotifier::StaticClass()));
+	if (notifier != nullptr)
+	{
+		notifier->AddListener(this);
+	}
 }
 
 void AInputResultText::BeginDestroy()
 {
 	Super::BeginDestroy();
-	GameNotifier::getInstance()->removeObserver(this);
+
+	UMDGameNotifier * notifier = Cast<UMDGameNotifier>(UGameSingleton::GetGameSingleton()->GetInstance(UMDGameNotifier::StaticClass()));
+	if (notifier != nullptr)
+	{
+		notifier->RemoveListener(this);
+	}
 }
 
-void AInputResultText::updateSelf(void* data)
+void AInputResultText::UpdateSelf_Implementation(const FGameNotifyData & notifyData)
 {
 	UE_LOG(LogTemp, Warning, TEXT("AInputResultText::updateSelf"));
-	if (data != nullptr)
+
+	if (notifyData.ID == (int)E_BTN_INPUT)
 	{
-		ObserverParam * param = (ObserverParam *)data;
-		if (param->id == (int)GameNotifier::E_BTN_INPUT)
+		AInputBtnActor * btn = Cast<AInputBtnActor>(notifyData.Data);
+		if (btn != nullptr)
 		{
-			AInputBtnActor * btn = (AInputBtnActor*)(param->updateData);
-			if (btn != nullptr)
-			{
-				handleInput(btn->GetBtnType(), *btn->GetText());
-			}
+			handleInput(btn->GetBtnType(), *btn->GetText());
 		}
 	}
-		
 }
 
 void AInputResultText::handleInput(INPUT_BTN_TYPE inputType, FString value)

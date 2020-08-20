@@ -21,14 +21,8 @@ public:
 	AAttacker();
 
 public:
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
-		UStaticMeshComponent  * AttackerRoot;
-
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
-		UTextRenderComponent * AttackNum;
-
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
-		UBoxComponent * CollisionBox;
+	UFUNCTION(BlueprintCallable)
+	void SetTextRender(UTextRenderComponent * textRender);
 
 	void SetNumber(int number);
 
@@ -36,5 +30,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+private:
+	int _number;
+	UTextRenderComponent * _attackNumText;
 
 };

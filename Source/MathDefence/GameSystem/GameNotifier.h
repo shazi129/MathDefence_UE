@@ -2,26 +2,37 @@
 
 #pragma once
 
-#include "./Observer.h"
+#include "./GameListener.h"
 #include "CoreMinimal.h"
+#include "UObject/NoExportTypes.h"
+#include "GameNotifier.generated.h"
+
 
 /**
  * 
  */
-class MATHDEFENCE_API GameNotifier: public Observable
+UCLASS()
+class MATHDEFENCE_API UGameNotifier : public UObject
 {
+	GENERATED_BODY()
+	
 public:
-	enum  NOTIFY_ID
-	{
-		E_BTN_INPUT,
-	};
+	UFUNCTION(BlueprintCallable)
+	void AddListener(TScriptInterface<IGameListener> listener);
 
-public:
-	~GameNotifier();
+	UFUNCTION(BlueprintCallable)
+	void RemoveListener(TScriptInterface<IGameListener> listener);
 
-	static GameNotifier * getInstance();
+	UFUNCTION(BlueprintCallable)
+		void Clear();
 
-private:
-	GameNotifier();
-	static GameNotifier * _instance;
+	UFUNCTION(BlueprintCallable)
+	void NotifyListeners(const FGameNotifyData& notifyData);
+
+	UFUNCTION(BlueprintCallable)
+		bool IsListenerExist(TScriptInterface<IGameListener> listener);
+
+protected:
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TArray<TScriptInterface<IGameListener>> Listeners;
 };

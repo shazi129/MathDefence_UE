@@ -3,7 +3,7 @@
 #pragma once
 
 #include "./InputBtnActor.h"
-#include "./../GameSystem/Observer.h"
+#include "./../GameSystem/GameListener.h"
 #include "Components/TextRenderComponent.h"
 #include "Components/SceneComponent.h"
 #include "CoreMinimal.h"
@@ -11,7 +11,7 @@
 #include "InputResultText.generated.h"
 
 UCLASS()
-class MATHDEFENCE_API AInputResultText : public AActor, public Observer
+class MATHDEFENCE_API AInputResultText : public AActor, public IGameListener
 {
 	GENERATED_BODY()
 	
@@ -20,7 +20,10 @@ public:
 	AInputResultText();
 
 public:
-	virtual void updateSelf(void* data);
+// 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+// 		void UpdateSelf(const FGameNotifyData & notifyData);
+
+	virtual void UpdateSelf_Implementation(const FGameNotifyData & notifyData);
 
 public:
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
