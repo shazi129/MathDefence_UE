@@ -11,6 +11,7 @@ UGameSingleton * UGameSingleton::GetGameSingleton()
 UObject * UGameSingleton::GetInstance(UClass * classType)
 {
 	FString instanceName = classType->GetName();
+
 	if (InstancesMap.Contains(instanceName))
 	{
 		return InstancesMap[instanceName];

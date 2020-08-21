@@ -71,8 +71,20 @@ void AInputResultText::handleInput(INPUT_BTN_TYPE inputType, FString value)
 	}
 	else
 	{
+		UMDGameNotifier * notifier = Cast<UMDGameNotifier>(UGameSingleton::GetGameSingleton()->GetInstance(UMDGameNotifier::StaticClass()));
+		FGameNotifyData notifyData;
+		notifyData.ID = (int)E_START_TO_CHECK_RESULT;
+		notifyData.Data = this;
+	
+		notifier->NotifyListeners(notifyData);
+
 		_number = 0;
 	}
 
 	ResultText->SetText(FText::FromString(FString::FromInt(_number)));
+}
+
+int AInputResultText::GetNumber()
+{
+	return _number;
 }

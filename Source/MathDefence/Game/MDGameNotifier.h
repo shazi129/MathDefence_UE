@@ -9,7 +9,9 @@
 UENUM(BlueprintType)
 enum MD_GAME_NOTIFY_ID
 {
-	E_BTN_INPUT
+	E_BTN_INPUT,
+
+	E_START_TO_CHECK_RESULT
 };
 
 /**

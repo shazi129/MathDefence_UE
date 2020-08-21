@@ -11,7 +11,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable)
 class MATHDEFENCE_API UGameNotifier : public UObject
 {
 	GENERATED_BODY()
@@ -27,7 +27,7 @@ public:
 		void Clear();
 
 	UFUNCTION(BlueprintCallable)
-	void NotifyListeners(const FGameNotifyData& notifyData);
+	void NotifyListeners(FGameNotifyData& notifyData);
 
 	UFUNCTION(BlueprintCallable)
 		bool IsListenerExist(TScriptInterface<IGameListener> listener);

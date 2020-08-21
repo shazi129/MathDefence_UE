@@ -32,6 +32,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
 		UTextRenderComponent * ResultText;
 
+	UFUNCTION(BlueprintCallable)
+		int GetNumber();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
