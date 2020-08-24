@@ -22,9 +22,22 @@ public:
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void SetTextRender(UTextRenderComponent * textRender);
+		void SetTextRender(UTextRenderComponent * textRender);
 
-	void SetNumber(int number);
+	UFUNCTION(BlueprintCallable)
+		void SetText(FString text);
+
+	UFUNCTION(BlueprintCallable)
+		FString GetText();
+
+	UFUNCTION(BlueprintCallable)
+		int GetNumber();
+
+	UFUNCTION(BlueprintCallable)
+		void SetNumber(int number);
+
+	UFUNCTION(BlueprintCallable)
+		void Print();
 
 protected:
 	// Called when the game starts or when spawned

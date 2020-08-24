@@ -2,12 +2,13 @@
 
 #pragma once
 
+#include "./../GameSystem/GameListener.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "AttackerCreator.generated.h"
 
 UCLASS()
-class MATHDEFENCE_API AAttackerCreator : public AActor
+class MATHDEFENCE_API AAttackerCreator : public AActor, public IGameListener
 {
 	GENERATED_BODY()
 	
